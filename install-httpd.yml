@@ -1,0 +1,25 @@
+---
+- name: Install httpd
+  hosts: localhost
+  tasks:
+  - name: latest httpd version instlling
+    yum:
+      name: httpd
+      state: latest
+  - name: enable http and run
+    service:
+      name: httpd
+      state: started
+      enabled: true
+  - name: create http home page
+    copy:
+      content: "Welcome to itop experiment!\n"
+      dest: /var/www/html/index.html
+
+  - name: test the webserver connection 
+    uri:
+     url: http://localhost
+     status_code: 200
+
+    
+

@@ -1,0 +1,13 @@
+---
+# install-mysql role
+- name: clone a git repository
+  hosts: localhost
+  tasks:
+   - name: cloning
+
+#     git:
+#      repo: https://github.com/geerlingguy/ansible-role-mysql.git
+#      dest: roles/
+     git:
+       repo: https://github.com/Vinelab/ansible-mysql.git
+       dest: roles/mysql/

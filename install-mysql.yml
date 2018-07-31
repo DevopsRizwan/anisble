@@ -1,0 +1,15 @@
+---
+- name: install mysql
+  hosts: localhost
+  vars:
+
+    mysql:
+     db: project-database
+     user: myuser
+     password: passwourld
+     privileges: '*.*:ALL'
+     host: '%'
+     bind:
+       - 0.0.0.0
+  roles:
+    - mysql

@@ -1,0 +1,18 @@
+---
+# These task installs and enables apache on webservers
+- name: ensure apache,php related packages are installed
+  hosts:
+   localhost
+  tasks:
+  - name: installing
+    yum: name={{ item }} state=present
+    with_items: 
+     - php 
+     - php-mysql 
+     - php-mcrypt 
+     - php-xml 
+     - php-cli 
+     - php-soap 
+     - php-ldap 
+     - graphviz
+   

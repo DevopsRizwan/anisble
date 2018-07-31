@@ -1,0 +1,7 @@
+---
+
+- include: install-httpd.yml
+- include: install-mysql.yml
+- include: install-php.yml
+- include: download-install-itop.yml
+

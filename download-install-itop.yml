@@ -1,0 +1,38 @@
+---
+- name: Download and Install iTop
+  hosts:
+   localhost
+  tasks:
+  - name: Install unzip 
+    yum: name=unzip state=latest
+
+  - name: get Itop
+    get_url:
+     url: http://sourceforge.net/projects/itop/files/itop/2.0.2/iTop-2.0.2-1476.zip
+     dest: /var/www/html
+     mode: 0440
+  - name: unArchive the file
+    unarchive: src=/var/www/html/iTop-2.0.2-1476.zip  dest=/var/www/html
+
+  - name: Move web to itop folder
+    shell: mv /var/www/html/web/* /var/www/html/itop/
+    ignore_errors: yes
+
+  - name: "Checking folders"
+    stat:
+       path: "{{item}}"
+    register: folder_stats
+    with_items:
+      - ["/var/www/html/itop/conf","/var/www/html/itop/data","/var/www/html/itop/env-production","/var/www/html/itop/log"]
+  - name: "Creating multiple folders without disturbing previous permissions"
+    file:
+       path: "{{item.item}}"
+       state: directory
+       mode: 0777
+       group: root
+       owner: root
+    when: item.stat.exists == false
+    with_items:
+      - "{{folder_stats.results}}"
+
+
